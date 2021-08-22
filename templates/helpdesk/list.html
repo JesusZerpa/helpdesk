@@ -1,0 +1,20 @@
+{%extends "helpdesk/base.html"%}
+{%block content%}
+<div>
+	<h3>TICKETS</h3>
+	{%for ticket in tickets%}
+	<div class="card">
+		<a href="/hepdesk/{{service}}/tickets/{{tickets.id}}">
+			<div class="card-content">
+				<img src="">
+				<h3>{{ticket.name}}</h3>
+				<div>
+					{{ticket.description}}
+				</div>
+			</div>	
+		</a>
+		
+	</div>
+	{%endfor%}
+</div>
+{%endblock%}

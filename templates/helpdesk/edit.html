@@ -1,0 +1,29 @@
+{%block content%}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col md12">
+			<h3>{{title}}</h3>
+			{%for message in messages%}
+			<div class="card">	
+				<div class="card-content">
+					<img src="{{message.image}}">
+					{{message.content}}
+				</div>	
+			</div>
+			{%endfor%}
+			<form action="/hepdesk/{{service}}/tickets/{{ticket}}" method="POST">
+			<label for="content">
+				Contenido
+				<textarea name="content"></textarea>
+			</label>
+			<label for="file">
+				Adjunto
+				<input type="file" name="file">
+			</label>
+			<input type="submit" value="Enviar" class="btn">	
+			</form>
+
+		</div>
+	</div>
+</div>
+{%endblock%}
