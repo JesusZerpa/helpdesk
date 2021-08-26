@@ -5,4 +5,6 @@ from .models import *
 admin.site.register(Template)
 admin.site.register(Package)
 admin.site.register(Service)
+admin.site.register(Theme)
 admin.site.register(Ticket)
+admin.site.register(TicketMessage)

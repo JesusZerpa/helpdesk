@@ -1,13 +1,25 @@
+{%extends "helpdesk/base.html"%}
 {%block content%}
-<div class="container-fluid">
+<div class="">
+	<a class="right" href="{{LOGOUT_REDIRECT_URL}}">Cerrar Sesión</a>
+</div>
+<div class="container">
 	<div class="row">
-		<div class="col md12">
-			<h3>Servicios</h3>
+		
+		<div class="col m12 center">
+			<img src="{{company_logo}}">
+			<h3>{{company_name}}</h3>
+		</div>
+	</div>
+	<div class="row center">
+		<h3 class="center">Servicios</h3>
+		<div class="col m3">
+			
 			{%for service in services%}
 			<div class="card">
-				<a href="/hepdesk/{{service.id}}/tickets/">
-					<div class="card-content">
-						<img src="">
+				<a href="/helpdesk/{{service.id}}/tickets/">
+					<div class="card-content center">
+						<img src="{{service.image}}">
 						<h3>{{service.name}}</h3>
 					</div>	
 				</a>

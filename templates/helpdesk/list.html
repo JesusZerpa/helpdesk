@@ -1,13 +1,17 @@
 {%extends "helpdesk/base.html"%}
 {%block content%}
-<div>
-	<h3>TICKETS</h3>
-	{%for ticket in tickets%}
+<a href="/helpdesk/" class="btn">Servicios</a>
+<div class="container">
+	<div class="row">
+		<div class="col m12">
+			<h3>TICKETS</h3>
+
+	{%for ticket in object_list%}
 	<div class="card">
-		<a href="/hepdesk/{{service}}/tickets/{{tickets.id}}">
+		<a href="/helpdesk/{{service}}/tickets/{{ticket.id}}/edit/">
 			<div class="card-content">
 				<img src="">
-				<h3>{{ticket.name}}</h3>
+				<label class="card-title">{{ticket.name}}</label>
 				<div>
 					{{ticket.description}}
 				</div>
@@ -16,5 +20,8 @@
 		
 	</div>
 	{%endfor%}
+		</div>
+	</div>
+	
 </div>
 {%endblock%}

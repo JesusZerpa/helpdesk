@@ -3,9 +3,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col s12">
-			<img src="{{HELPDEK_LOGO}}">
-			<h3>HELPDESK</h3>
-			<form action="/hepdesk/login">
+			<img src="{{company_logo}}">
+			<h3>{{company_name | "HELPDESK"}}</h3>
+			<form action="/helpdesk/login">
 				<input type="text" name="username">
 				<input type="password" name="password">
 				<input type="submit" value="Entrar" class="btn">

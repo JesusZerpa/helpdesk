@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from jsonfield import JSONField
+from datetime import datetime
 # Create your models here.
 class Theme(models.Model):
 	name=models.CharField("Nombre",max_length=250,unique=True)
-	image=models.FileField("Archivo",upload_to="media/helpdesk/images/")
+	image=models.FileField("Archivo",upload_to="helpdesk/images/")
 	decription=models.TextField("Descripcion")
 
 
@@ -28,11 +29,15 @@ class Template(models.Model):
 		("year","Anual"),
 	]
 	price=models.IntegerField("Precio")
-	currency=models.CharField("Moneda",max_length=250)
+	currency=models.CharField("Moneda",
+		max_length=250,
+		choices=CURRENCY)
 	recurrency=models.CharField("Recurrencia",max_length=250,
 		help_text="Ciclo de facturacion ",
 		choices=RECURRENCY)
 	package=models.ForeignKey(Package,on_delete=models.CASCADE)
+	def __str__(self):
+		return f"Template[{self.id}]:{self.package.name}"
 
 class Service(models.Model):
 	"""
@@ -81,8 +86,8 @@ class Service(models.Model):
 		default=None)
 	name=models.CharField("Nombre",max_length=250)
 	start_datetime=models.DateTimeField("Fecha inicio")
-	suspend_datetime=models.DateTimeField("Tiempo suspendido")
-	end_datetime=models.DateTimeField("Fecha Fin")
+	suspend_datetime=models.DateTimeField("Tiempo suspendido",blank=True,null=True)
+	end_datetime=models.DateTimeField("Fecha Fin",blank=True,null=True)
 	user=models.ForeignKey(User,on_delete=models.CASCADE)
 	template=models.ForeignKey(Template,on_delete=models.CASCADE)
 	decription=models.TextField("Descripcion")
@@ -126,14 +131,19 @@ class Ticket(models.Model):
 	name=models.CharField("Nombre",max_length=250)
 	theme=models.ForeignKey("helpdesk.Theme",on_delete=models.CASCADE)
 	open_datetime=models.DateTimeField("Fecha apertura")
-	closed_datetime=models.DateTimeField("Fecha cierre")
+	closed_datetime=models.DateTimeField("Fecha cierre",blank=True,null=True)
 	priority=models.CharField("Prioridad",max_length=250,choices=PRIORITY)
 	status=models.CharField("Estatus",max_length=250,choices=STATUS)
 	user=models.ForeignKey(User,on_delete=models.CASCADE)
+	def __str__(self):
+		return f"Ticket[{self.id}]: {self.name} | {self.priority}"
 
 class TicketMessage(models.Model):
 	author=models.ForeignKey(User,on_delete=models.CASCADE)
-	datetime=models.DateTimeField("Fecha")
+	datetime=models.DateTimeField("Fecha",default=datetime.now)
 	ticket=models.ForeignKey("helpdesk.Ticket",on_delete=models.CASCADE)
-	contenido=models.CharField("Contenido",max_length=250)
-	file=models.FileField("Archivo",max_length=250,upload_to="media/helpdesk/reportes/")
+	content=models.TextField("Contenido",max_length=250,)
+	file=models.FileField("Archivo",
+		max_length=250,
+		upload_to="media/helpdesk/reportes/",
+		null=True,blank=True)

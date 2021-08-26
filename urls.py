@@ -6,4 +6,4 @@ urlpatterns=[
 	path("faq/<name>/",faq),
 	path("login/",login),
 	]
-Tickets("<service>/tikects/",urlpatterns)
+Tickets("<service>/tickets/",urlpatterns,name="tickets")
