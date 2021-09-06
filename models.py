@@ -11,7 +11,8 @@ class Theme(models.Model):
 
 class Package(models.Model):
 	name=models.CharField("Nombre",max_length=250)
-	decription=models.TextField("Descripcion")
+	codename=models.CharField("Codigo",max_length=250,unique=True)
+	description=models.TextField("Descripcion")
 	options=JSONField("Opciones")
 
 class Template(models.Model):
@@ -31,13 +32,13 @@ class Template(models.Model):
 	price=models.IntegerField("Precio")
 	currency=models.CharField("Moneda",
 		max_length=250,
-		choices=CURRENCY)
+		choices=CURRENCY,default="usd")
 	recurrency=models.CharField("Recurrencia",max_length=250,
 		help_text="Ciclo de facturacion ",
-		choices=RECURRENCY)
+		choices=RECURRENCY,default="month")
 	package=models.ForeignKey(Package,on_delete=models.CASCADE)
 	def __str__(self):
-		return f"Template[{self.id}]:{self.package.name}"
+		return f"Template[{self.id}]:{self.package.codename}"
 
 class Service(models.Model):
 	"""
@@ -73,18 +74,19 @@ class Service(models.Model):
 		default=None)
 	currency=models.CharField("Moneda",
 		blank=True,null=True,
-		max_length=250,default=None,
+		max_length=250,
+		default=None,
 		choices=CURRENCY)
 	status=models.CharField("Status",
 		max_length=260,
-		choices=STATUS)
+		choices=STATUS,default="active")
 	recurrency=models.CharField("Recurrencia",
 		max_length=250,
 		blank=True,null=True,
 		help_text="Ciclo de facturacion ",
 		choices=RECURRENCY,
 		default=None)
-	name=models.CharField("Nombre",max_length=250)
+	name=models.CharField("Nombre",max_length=250,blank=True,null=True)
 	start_datetime=models.DateTimeField("Fecha inicio")
 	suspend_datetime=models.DateTimeField("Tiempo suspendido",blank=True,null=True)
 	end_datetime=models.DateTimeField("Fecha Fin",blank=True,null=True)
