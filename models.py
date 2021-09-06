@@ -6,7 +6,7 @@ from datetime import datetime
 class Theme(models.Model):
 	name=models.CharField("Nombre",max_length=250,unique=True)
 	image=models.FileField("Archivo",upload_to="helpdesk/images/")
-	decription=models.TextField("Descripcion")
+	description=models.TextField("Descripcion")
 
 
 class Package(models.Model):
@@ -92,7 +92,7 @@ class Service(models.Model):
 	end_datetime=models.DateTimeField("Fecha Fin",blank=True,null=True)
 	user=models.ForeignKey(User,on_delete=models.CASCADE)
 	template=models.ForeignKey(Template,on_delete=models.CASCADE)
-	decription=models.TextField("Descripcion")
+	description=models.TextField("Descripcion")
 
 
 class Plan(models.Model):
@@ -117,7 +117,7 @@ class Plan(models.Model):
 	recurrency=models.CharField("Recurrencia",max_length=250,
 		help_text="Ciclo de facturacion ",
 		choices=RECURRENCY)
-	decription=models.TextField("Descripcion")
+	description=models.TextField("Descripcion")
 	services=models.ManyToManyField("helpdesk.Service")
 
 class Ticket(models.Model):
