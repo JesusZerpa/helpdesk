@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from jsonfield import JSONField
+from django.contrib.postgres.fields import JSONField
 from datetime import datetime
 # Create your models here.
 class Theme(models.Model):
